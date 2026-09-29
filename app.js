@@ -1,7 +1,8 @@
 'use strict';
 
 const players = new Set();
-const pad = n => String(n).padStart(2, '0');
+const GAME_NAMES = {lol: 'League of Legends', dota2: 'Dota 2', hok: 'Honor of Kings'};
+const pad =n => String(n).padStart(2, '0');
 const clock = t => { t = Math.max(0, Number(t) || 0); return `${Math.floor(t / 60)}:${pad(Math.floor(t % 60))}`; };
 const scrollBehavior = () => (matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth');
 const ICON = {
@@ -42,7 +43,7 @@ function createDemo(root, scenes) {
   if (!scenes.length) return;
   let index = 0;
   const isLoL = root.dataset.game === 'lol';
-  const game = isLoL ? 'League of Legends' : 'Honor of Kings';
+  const game = GAME_NAMES[root.dataset.game] || root.dataset.game;
   const titleOf = i => (isLoL ? `Clip ${pad(i + 1)}` : scenes[i].title);
   root.innerHTML = `<div class="stage"><div class="stage-bar"><span class="model-tag">MOBA-VL<span class="badge">Ours</span></span><span class="stage-title"></span><span class="stage-count"></span></div><div class="screen"><video playsinline preload="none" aria-label="${game} commentary video"></video><button type="button" class="play-overlay" aria-label="Play ${game} video"><span class="play-disc">${ICON.play}</span><span>Play demo</span></button><button type="button" class="nav-btn prev" aria-label="Previous ${game} clip">${ICON.prev}</button><button type="button" class="nav-btn next" aria-label="Next ${game} clip">${ICON.next}</button></div></div><p class="player-status" role="status"></p>`;
   const video = root.querySelector('video'), overlay = root.querySelector('.play-overlay'), status = root.querySelector('.player-status');

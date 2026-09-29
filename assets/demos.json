@@ -72,6 +72,42 @@
     "featured": false
   },
   {
+    "id": "dota-sv-2331",
+    "game": "dota2",
+    "title": "Spirit vs VISION \u00b7 Game 2 \u00b7 23:31",
+    "duration": 20.0,
+    "src": "assets/videos/dota-spirit-vision-g2-2331.mp4",
+    "poster": "assets/posters/dota-spirit-vision-g2-2331.jpg",
+    "featured": true
+  },
+  {
+    "id": "dota-sv-1309",
+    "game": "dota2",
+    "title": "Spirit vs VISION \u00b7 Game 2 \u00b7 13:09",
+    "duration": 30.0,
+    "src": "assets/videos/dota-spirit-vision-g2-1309.mp4",
+    "poster": "assets/posters/dota-spirit-vision-g2-1309.jpg",
+    "featured": false
+  },
+  {
+    "id": "dota-is-1437",
+    "game": "dota2",
+    "title": "Iron Wing vs Spirit \u00b7 Game 2 \u00b7 14:37",
+    "duration": 30.0,
+    "src": "assets/videos/dota-ironwing-spirit-g2-1437.mp4",
+    "poster": "assets/posters/dota-ironwing-spirit-g2-1437.jpg",
+    "featured": false
+  },
+  {
+    "id": "dota-ly-1504",
+    "game": "dota2",
+    "title": "Liquid vs Yandex \u00b7 Game 2 \u00b7 15:04",
+    "duration": 30.0,
+    "src": "assets/videos/dota-liquid-yandex-g2-1504.mp4",
+    "poster": "assets/posters/dota-liquid-yandex-g2-1504.jpg",
+    "featured": false
+  },
+  {
     "id": "hok-aur-roc-g3",
     "game": "hok",
     "title": "AUR vs ROC \u00b7 Game 3",

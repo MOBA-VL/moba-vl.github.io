@@ -8,8 +8,8 @@
 <meta name="description" content="MOBA-VL: Event-Localized Multi-Turn Reinforcement Learning for Real-Time MOBA Commentary. Anonymous research project and selected demos.">
 <title>MOBA-VL · Real-Time MOBA Commentary</title>
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="styles.css?v=20260928-refresh6">
-<script src="app.js?v=20260928-refresh6" defer></script>
+<link rel="stylesheet" href="styles.css?v=20260929-dota">
+<script src="app.js?v=20260929-dota" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#lol">Skip to demos</a>
@@ -19,6 +19,7 @@
     <a class="wordmark" href="#top" aria-label="MOBA-VL, back to top"><span class="wm-blue">MOBA</span><span class="wm-orange">-VL</span></a>
     <div class="topbar-links">
       <a href="#lol"><span class="lbl-long">League of Legends</span><span class="lbl-short" aria-hidden="true">LoL</span></a>
+      <a href="#dota2"><span class="lbl-long">Dota 2</span><span class="lbl-short" aria-hidden="true">Dota</span></a>
       <a href="#hok"><span class="lbl-long">Honor of Kings</span><span class="lbl-short" aria-hidden="true">HoK</span></a>
       <a href="#comparison"><span class="lbl-long">Comparison</span><span class="lbl-short" aria-hidden="true">Compare</span></a>
       <a href="#abstract">Abstract</a>
@@ -52,10 +53,21 @@
     </div>
   </section>
 
-  <section class="block" id="hok" aria-labelledby="hok-title">
+  <section class="block" id="dota2" aria-labelledby="dota2-title">
     <div class="wrap">
       <div class="section-head">
         <p class="eyebrow"><span>02</span>Live demo</p>
+        <h2 id="dota2-title">Dota 2</h2>
+        <p class="section-desc">The same streaming setup on professional Dota 2 matches.</p>
+      </div>
+      <div class="demo-player" data-game="dota2"></div>
+    </div>
+  </section>
+
+  <section class="block" id="hok" aria-labelledby="hok-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow"><span>03</span>Live demo</p>
         <h2 id="hok-title">Honor of Kings</h2>
         <p class="section-desc">The same streaming setup on professional Honor of Kings matches.</p>
       </div>
@@ -66,7 +78,7 @@
   <section class="block block-band" id="comparison" aria-labelledby="comparison-title">
     <div class="wrap">
       <div class="section-head">
-        <p class="eyebrow"><span>03</span>Head-to-head</p>
+        <p class="eyebrow"><span>04</span>Head-to-head</p>
         <h2 id="comparison-title">MOBA-VL vs. Proact-VL</h2>
         <p class="section-desc">MOBA-VL focuses on what a human caster would call out, such as how the fight unfolds, kills, dragons, and tower pushes. The prior method often falls back on generic filler right when a fight needs commentary.</p>
       </div>
@@ -79,7 +91,7 @@
 
   <section class="block" id="abstract" aria-labelledby="abstract-title">
     <div class="wrap">
-      <p class="eyebrow"><span>04</span>Paper</p>
+      <p class="eyebrow"><span>05</span>Paper</p>
       <h2 id="abstract-title">Abstract</h2>
       <p class="abstract-text">Real-time commentary for Multiplayer Online Battle Arena (MOBA) esports requires a vision-language model (VLM) to narrate a live match second by second, both fluently and accurately. Existing streaming VLMs sound natural but often miss key events such as kills and objectives. To address this limitation, we use game telemetry, which records exactly when each event occurs, as a supervision signal. We introduce MOBA-VL, a 9B-parameter model trained on this signal with event-localized multi-turn reinforcement learning, which rewards the turns that describe each event. We also collect MOBACast, 860 professional matches (about 460 hours) across three MOBA games with word-level timestamped commentary, and MOBACast-Bench, a benchmark from held-out tournaments. On MOBACast-Bench, MOBA-VL achieves the highest Overall score on full matches (63.25 vs. 55.12 for StreamingVLM) and clips (63.45 vs. 56.22 for DeepSeek-V4.1-Flash). Event-localized credit also raises event recall from 34.5 to 42.1 over supervised fine-tuning. Code and data will be released.</p>
     </div>
