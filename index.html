@@ -1,11 +1,94 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>MOBA-VLM</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffffff">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="MOBA-VL: Event-Localized Multi-Turn Reinforcement Learning for Real-Time MOBA Commentary. Anonymous research project and selected demos.">
+<title>MOBA-VL · Real-Time MOBA Commentary</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css?v=20260928-refresh6">
+<script src="app.js?v=20260928-refresh6" defer></script>
 </head>
 <body>
-  <h1>MOBA-VLM</h1>
-  <p>Project page coming soon.</p>
+<a class="skip-link" href="#lol">Skip to demos</a>
+
+<nav class="topbar" aria-label="Page sections">
+  <div class="topbar-inner">
+    <a class="wordmark" href="#top" aria-label="MOBA-VL, back to top"><span class="wm-blue">MOBA</span><span class="wm-orange">-VL</span></a>
+    <div class="topbar-links">
+      <a href="#lol"><span class="lbl-long">League of Legends</span><span class="lbl-short" aria-hidden="true">LoL</span></a>
+      <a href="#hok"><span class="lbl-long">Honor of Kings</span><span class="lbl-short" aria-hidden="true">HoK</span></a>
+      <a href="#comparison"><span class="lbl-long">Comparison</span><span class="lbl-short" aria-hidden="true">Compare</span></a>
+      <a href="#abstract">Abstract</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="hero-inner">
+    <p class="hero-eyebrow"><span class="hero-dot" aria-hidden="true"></span>Anonymous project page · Paper under double-blind review</p>
+    <img class="hero-logo" src="assets/moba-vl-logo-light.png" alt="MOBA-VL" width="1248" height="180">
+    <h1><span class="nowrap">Event-Localized</span> <span class="nowrap">Multi-Turn</span> Reinforcement Learning <br class="br-wide">for <span class="nowrap">Real-Time</span> MOBA Commentary</h1>
+    <p class="hero-tagline">A 9B vision-language model for real-time MOBA commentary on infinite video streams.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#lol"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.6v12.8a1 1 0 0 0 1.53.85l10.1-6.4a1 1 0 0 0 0-1.7L9.53 4.75A1 1 0 0 0 8 5.6Z"/></svg>Watch demos</a>
+      <a class="btn" href="#comparison"><svg class="stroke" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h15m-4-4 4 4-4 4M20 16H5m4-4-4 4 4 4"/></svg>Compare with Proact-VL</a>
+      <a class="btn btn-ghost" href="#abstract">Read the abstract</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="block" id="lol" aria-labelledby="lol-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow"><span>01</span>Live demo</p>
+        <h2 id="lol-title">League of Legends</h2>
+        <p class="section-desc">Given a 1 FPS video stream, MOBA-VL generates one commentary turn per second using only the frames it has seen so far.</p>
+      </div>
+      <div class="demo-player" data-game="lol"></div>
+    </div>
+  </section>
+
+  <section class="block" id="hok" aria-labelledby="hok-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow"><span>02</span>Live demo</p>
+        <h2 id="hok-title">Honor of Kings</h2>
+        <p class="section-desc">The same streaming setup on professional Honor of Kings matches.</p>
+      </div>
+      <div class="demo-player" data-game="hok"></div>
+    </div>
+  </section>
+
+  <section class="block block-band" id="comparison" aria-labelledby="comparison-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow"><span>03</span>Head-to-head</p>
+        <h2 id="comparison-title">MOBA-VL vs. Proact-VL</h2>
+        <p class="section-desc">Each clip is commentated by both models. Switch the audio between them, or turn on side by side to watch both at once.</p>
+      </div>
+      <div id="comparison-player" class="compare-player"></div>
+      <p class="fine-print">Both models process video at 1 FPS, with their image-resolution settings (including min/max pixel limits) adjusted for 720p input.</p>
+    </div>
+  </section>
+
+  <noscript><p class="wrap"><a href="assets/videos/lol-06-moba-newvoice.mp4">Watch the first demo</a>. Enable JavaScript to browse more videos.</p></noscript>
+
+  <section class="block" id="abstract" aria-labelledby="abstract-title">
+    <div class="wrap">
+      <p class="eyebrow"><span>04</span>Paper</p>
+      <h2 id="abstract-title">Abstract</h2>
+      <p class="abstract-text">Real-time commentary for Multiplayer Online Battle Arena (MOBA) esports requires a vision-language model (VLM) to narrate a live match second by second, both fluently and accurately. Existing streaming VLMs sound natural but often miss key events such as kills and objectives. To address this limitation, we use game telemetry, which records exactly when each event occurs, as a supervision signal. We introduce MOBA-VL, a 9B-parameter model trained on this signal with event-localized multi-turn reinforcement learning, which rewards the turns that describe each event. We also collect MOBACast, 860 professional matches (about 460 hours) across three MOBA games with word-level timestamped commentary, and MOBACast-Bench, a benchmark from held-out tournaments. On MOBACast-Bench, MOBA-VL achieves the highest Overall score on full matches (63.25 vs. 55.12 for StreamingVLM) and clips (63.45 vs. 56.22 for DeepSeek-V4.1-Flash). Event-localized credit also raises event recall from 34.5 to 42.1 over supervised fine-tuning. Code and data will be released.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>Copyright &copy; 2026 MOBA-VL Project Team.</p>
+  <p>Anonymous page for double-blind review. This site uses no cookies or analytics.</p>
+</footer>
 </body>
 </html>

@@ -1,0 +1,114 @@
+[
+  {
+    "id": "lol-06",
+    "title": "League of Legends",
+    "ours": {
+      "src": "assets/videos/lol-06-moba-newvoice.mp4",
+      "poster": "assets/posters/lol-06-moba-newvoice.jpg",
+      "duration": 29.87985
+    },
+    "proact": {
+      "src": "assets/videos/lol-06-proact-newvoice.mp4",
+      "poster": "assets/posters/lol-06-proact-newvoice.jpg",
+      "duration": 29.87985
+    }
+  },
+  {
+    "id": "lol-01",
+    "title": "League of Legends",
+    "ours": {
+      "src": "assets/videos/lol-01-moba-newvoice.mp4",
+      "poster": "assets/posters/lol-01-moba-newvoice.jpg",
+      "duration": 59.907
+    },
+    "proact": {
+      "src": "assets/videos/lol-01-proact-newvoice.mp4",
+      "poster": "assets/posters/lol-01-proact-newvoice.jpg",
+      "duration": 59.907
+    }
+  },
+  {
+    "id": "lol-07",
+    "title": "League of Legends",
+    "ours": {
+      "src": "assets/videos/lol-07-moba-newvoice.mp4",
+      "poster": "assets/posters/lol-07-moba-newvoice.jpg",
+      "duration": 29.992
+    },
+    "proact": {
+      "src": "assets/videos/lol-07-proact-newvoice.mp4",
+      "poster": "assets/posters/lol-07-proact-newvoice.jpg",
+      "duration": 29.992
+    }
+  },
+  {
+    "id": "lol-02",
+    "title": "League of Legends",
+    "ours": {
+      "src": "assets/videos/lol-02-moba-newvoice.mp4",
+      "poster": "assets/posters/lol-02-moba-newvoice.jpg",
+      "duration": 29.996633
+    },
+    "proact": {
+      "src": "assets/videos/lol-02-proact-newvoice.mp4",
+      "poster": "assets/posters/lol-02-proact-newvoice.jpg",
+      "duration": 29.996633
+    }
+  },
+  {
+    "id": "lol-03",
+    "title": "League of Legends",
+    "ours": {
+      "src": "assets/videos/lol-03-moba-newvoice.mp4",
+      "poster": "assets/posters/lol-03-moba-newvoice.jpg",
+      "duration": 29.813117
+    },
+    "proact": {
+      "src": "assets/videos/lol-03-proact-newvoice.mp4",
+      "poster": "assets/posters/lol-03-proact-newvoice.jpg",
+      "duration": 29.813117
+    }
+  },
+  {
+    "id": "lol-04",
+    "title": "League of Legends",
+    "ours": {
+      "src": "assets/videos/lol-04-moba-newvoice.mp4",
+      "poster": "assets/posters/lol-04-moba-newvoice.jpg",
+      "duration": 29.988
+    },
+    "proact": {
+      "src": "assets/videos/lol-04-proact-newvoice.mp4",
+      "poster": "assets/posters/lol-04-proact-newvoice.jpg",
+      "duration": 29.988
+    }
+  },
+  {
+    "id": "lol-05",
+    "title": "League of Legends",
+    "ours": {
+      "src": "assets/videos/lol-05-moba-newvoice.mp4",
+      "poster": "assets/posters/lol-05-moba-newvoice.jpg",
+      "duration": 29.881
+    },
+    "proact": {
+      "src": "assets/videos/lol-05-proact-newvoice.mp4",
+      "poster": "assets/posters/lol-05-proact-newvoice.jpg",
+      "duration": 29.881
+    }
+  },
+  {
+    "id": "lol-08",
+    "title": "League of Legends",
+    "ours": {
+      "src": "assets/videos/lol-08-moba-newvoice.mp4",
+      "poster": "assets/posters/lol-08-moba-newvoice.jpg",
+      "duration": 29.896533
+    },
+    "proact": {
+      "src": "assets/videos/lol-08-proact-newvoice.mp4",
+      "poster": "assets/posters/lol-08-proact-newvoice.jpg",
+      "duration": 29.896533
+    }
+  }
+]

@@ -1,0 +1,110 @@
+[
+  {
+    "id": "lol-06",
+    "game": "lol",
+    "title": "League of Legends",
+    "duration": 29.87985,
+    "src": "assets/videos/lol-06-moba-newvoice.mp4",
+    "poster": "assets/posters/lol-06-moba-newvoice.jpg",
+    "featured": true
+  },
+  {
+    "id": "lol-01",
+    "game": "lol",
+    "title": "League of Legends",
+    "duration": 59.907,
+    "src": "assets/videos/lol-01-moba-newvoice.mp4",
+    "poster": "assets/posters/lol-01-moba-newvoice.jpg",
+    "featured": false
+  },
+  {
+    "id": "lol-07",
+    "game": "lol",
+    "title": "League of Legends",
+    "duration": 29.992,
+    "src": "assets/videos/lol-07-moba-newvoice.mp4",
+    "poster": "assets/posters/lol-07-moba-newvoice.jpg",
+    "featured": false
+  },
+  {
+    "id": "lol-02",
+    "game": "lol",
+    "title": "League of Legends",
+    "duration": 29.996633,
+    "src": "assets/videos/lol-02-moba-newvoice.mp4",
+    "poster": "assets/posters/lol-02-moba-newvoice.jpg",
+    "featured": false
+  },
+  {
+    "id": "lol-03",
+    "game": "lol",
+    "title": "League of Legends",
+    "duration": 29.813117,
+    "src": "assets/videos/lol-03-moba-newvoice.mp4",
+    "poster": "assets/posters/lol-03-moba-newvoice.jpg",
+    "featured": false
+  },
+  {
+    "id": "lol-04",
+    "game": "lol",
+    "title": "League of Legends",
+    "duration": 29.988,
+    "src": "assets/videos/lol-04-moba-newvoice.mp4",
+    "poster": "assets/posters/lol-04-moba-newvoice.jpg",
+    "featured": false
+  },
+  {
+    "id": "lol-05",
+    "game": "lol",
+    "title": "League of Legends",
+    "duration": 29.881,
+    "src": "assets/videos/lol-05-moba-newvoice.mp4",
+    "poster": "assets/posters/lol-05-moba-newvoice.jpg",
+    "featured": false
+  },
+  {
+    "id": "lol-08",
+    "game": "lol",
+    "title": "League of Legends",
+    "duration": 29.896533,
+    "src": "assets/videos/lol-08-moba-newvoice.mp4",
+    "poster": "assets/posters/lol-08-moba-newvoice.jpg",
+    "featured": false
+  },
+  {
+    "id": "hok-aur-roc-g3",
+    "game": "hok",
+    "title": "AUR vs ROC \u00b7 Game 3",
+    "duration": 30.04,
+    "src": "assets/videos/hok-aur-roc-g3.mp4",
+    "poster": "assets/posters/hok-aur-roc-g3.jpg",
+    "featured": false
+  },
+  {
+    "id": "hok-boom-nmss-g1",
+    "game": "hok",
+    "title": "BOOM vs NMSS \u00b7 Game 1",
+    "duration": 30.04,
+    "src": "assets/videos/hok-boom-nmss-g1.mp4",
+    "poster": "assets/posters/hok-boom-nmss-g1.jpg",
+    "featured": false
+  },
+  {
+    "id": "hok-ksg-ag-g2",
+    "game": "hok",
+    "title": "KSG vs AG \u00b7 Game 2",
+    "duration": 30.04,
+    "src": "assets/videos/hok-ksg-ag-g2.mp4",
+    "poster": "assets/posters/hok-ksg-ag-g2.jpg",
+    "featured": false
+  },
+  {
+    "id": "hok-tec-aur-g1",
+    "game": "hok",
+    "title": "TEC vs AUR \u00b7 Game 1",
+    "duration": 60.03,
+    "src": "assets/videos/hok-tec-aur-g1.mp4",
+    "poster": "assets/posters/hok-tec-aur-g1.jpg",
+    "featured": true
+  }
+]
