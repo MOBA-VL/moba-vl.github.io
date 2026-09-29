@@ -75,18 +75,25 @@ function createDemo(root, scenes) {
 
 function createComparison(root, scenes) {
   if (!scenes.length) { root.textContent = 'Comparison videos are being prepared.'; return; }
-  let index = 0, loaded = false, activeAudio = 'ours', syncing = false, sideBySide = false;
+  let index = 0, activeAudio = 'ours', sideBySide = false, wantPlay = false, pos = 0;
+  const waiting = new Set();
   const MODELS = [{id: 'ours', name: 'MOBA-VL', tag: 'Ours'}, {id: 'proact', name: 'Proact-VL', tag: 'Prior method'}];
-  root.innerHTML = `<div class="compare-toolbar"><div class="model-picker"><p class="picker-label" id="picker-label">Listen to commentary from</p><div class="model-tabs" role="group" aria-labelledby="picker-label">${MODELS.map(m => `<button type="button" class="model-tab" data-audio="${m.id}"><span class="tab-dot" aria-hidden="true"></span><span class="tab-text"><strong>${m.name}</strong><small>${m.tag}</small></span><span class="tab-sound" aria-hidden="true">${ICON.sound}<span>Audio</span></span></button>`).join('')}</div></div><label class="switch"><input type="checkbox" class="layout-toggle"><span class="switch-track" aria-hidden="true"></span><span>Side by side</span></label></div><div class="compare-grid">${MODELS.map(m => `<div class="stage" data-panel="${m.id}"><div class="stage-bar"><span class="model-tag">${m.name}<span class="badge">${m.tag}</span></span><span class="audio-state"></span></div><div class="screen"><video data-model="${m.id}" playsinline preload="none" aria-label="${m.name} comparison video"></video><p class="missing-video" hidden>Video being prepared</p></div></div>`).join('')}</div><div class="transport"><button type="button" class="pair-play" aria-label="Play both videos">${ICON.play}</button><input class="pair-seek" type="range" min="0" max="60" step="0.1" value="0" aria-label="Comparison playback position"><output class="pair-time">0:00 / 0:00</output></div><p class="pair-status" role="status"></p><div class="strip-head"><span>Clips</span><span class="pair-count"></span></div>`;
-  const videos = [...root.querySelectorAll('video')], lead = videos[0];
+  root.innerHTML = `<div class="compare-toolbar"><div class="model-picker"><p class="picker-label" id="picker-label">Listen to commentary from</p><div class="model-tabs" role="group" aria-labelledby="picker-label">${MODELS.map(m => `<button type="button" class="model-tab" data-audio="${m.id}"><span class="tab-dot" aria-hidden="true"></span><span class="tab-text"><strong>${m.name}</strong><small>${m.tag}</small></span><span class="tab-sound" aria-hidden="true">${ICON.sound}<span>Audio</span></span></button>`).join('')}</div></div><label class="switch"><input type="checkbox" class="layout-toggle"><span class="switch-track" aria-hidden="true"></span><span>Side by side</span></label></div><div class="compare-grid">${MODELS.map(m => `<div class="stage" data-panel="${m.id}"><div class="stage-bar"><span class="model-tag">${m.name}<span class="badge">${m.tag}</span></span><span class="audio-state"></span></div><div class="screen"><video data-model="${m.id}" playsinline preload="none" aria-label="${m.name} comparison video"></video><span class="buffer-spinner" aria-hidden="true"></span><p class="missing-video" hidden>Video being prepared</p></div></div>`).join('')}</div><div class="transport"><button type="button" class="pair-play" aria-label="Play">${ICON.play}</button><input class="pair-seek" type="range" min="0" max="60" step="0.1" value="0" aria-label="Comparison playback position"><output class="pair-time">0:00 / 0:00</output></div><p class="pair-status" role="status"></p><div class="strip-head"><span>Clips</span><span class="pair-count"></span></div>`;
+  const videos = [...root.querySelectorAll('video')];
   const play = root.querySelector('.pair-play'), seek = root.querySelector('.pair-seek'), time = root.querySelector('.pair-time');
   const status = root.querySelector('.pair-status'), toggle = root.querySelector('.layout-toggle');
   const strip = thumbStrip(scenes.map((s, i) => ({poster: s.ours.poster, duration: s.ours.duration, label: `Comparison clip ${i + 1}`})), 'Comparison clips', i => { index = i; render(true); });
   root.append(strip.el);
   videos.forEach(v => players.add(v));
-  const available = () => videos.filter(v => scenes[index][v.dataset.model]);
+  const scene = () => scenes[index];
+  const byId = id => videos.find(v => v.dataset.model === id);
+  const available = () => videos.filter(v => scene()[v.dataset.model]);
+  // Only the model being heard plays in single view; side by side runs both, clocked by the audible one.
+  const active = () => available().filter(v => sideBySide || v.dataset.model === activeAudio);
+  const master = () => byId(activeAudio);
+  const loaded = v => !!v.getAttribute('src');
   function commonDuration() {
-    const lengths = available().map(v => (v.readyState > 0 && Number.isFinite(v.duration) ? v.duration : scenes[index][v.dataset.model].duration)).filter(d => Number.isFinite(d) && d > 0);
+    const lengths = available().map(v => (v.readyState > 0 && Number.isFinite(v.duration) ? v.duration : scene()[v.dataset.model].duration)).filter(d => Number.isFinite(d) && d > 0);
     return lengths.length ? Math.min(...lengths) : 0;
   }
   function showTime(t) {
@@ -98,14 +105,33 @@ function createComparison(root, scenes) {
   }
   function setPlaying(on) {
     play.innerHTML = on ? ICON.pause : ICON.play;
-    play.setAttribute('aria-label', on ? 'Pause both videos' : 'Play both videos');
+    play.setAttribute('aria-label', on ? 'Pause' : 'Play');
   }
-  function pause() { videos.forEach(v => v.pause()); setPlaying(false); }
-  function finishTogether() {
-    pause(); const end = commonDuration();
-    available().forEach(v => { if (v.readyState > 0 && Math.abs(v.currentTime - end) > .015) v.currentTime = end; });
-    showTime(end);
+  function setBuffering() {
+    root.querySelectorAll('[data-panel]').forEach(p => p.classList.toggle('is-buffering', wantPlay && waiting.has(byId(p.dataset.panel))));
   }
+  function ensureSrc(v) { if (!loaded(v)) { v.preload = 'auto'; v.src = scene()[v.dataset.model].src; } }
+  function seekTo(v, t) {
+    t = Math.max(0, Math.min(t, commonDuration()));
+    if (v.readyState > 0) { if (Math.abs(v.currentTime - t) > .03) v.currentTime = t; }
+    else v.addEventListener('loadedmetadata', () => { v.currentTime = Math.min(t, commonDuration()); }, {once: true});
+  }
+  function syncPos() { const m = master(); if (m && loaded(m) && m.readyState > 0) pos = m.currentTime; }
+  function stop() { wantPlay = false; waiting.clear(); videos.forEach(v => { v.pause(); v.playbackRate = 1; }); setPlaying(false); setBuffering(); }
+  async function run() {
+    const set = active();
+    videos.forEach(v => { if (!set.includes(v)) v.pause(); });
+    set.forEach(v => { ensureSrc(v); seekTo(v, pos); });
+    if (waiting.size) return;
+    try { await Promise.all(set.map(v => v.play())); status.textContent = ''; }
+    catch { if (wantPlay) { stop(); status.textContent = 'Playback could not start. Please try again.'; } }
+  }
+  function start() {
+    players.forEach(v => { if (!videos.includes(v)) v.pause(); });
+    if (pos >= commonDuration() - .05) pos = 0;
+    wantPlay = true; setPlaying(true); run();
+  }
+  function finish() { stop(); pos = commonDuration(); videos.forEach(v => { if (loaded(v) && v.readyState > 0) seekTo(v, pos); }); showTime(pos); }
   function audio() {
     videos.forEach(v => { v.muted = v.dataset.model !== activeAudio; });
     root.querySelectorAll('[data-audio]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.audio === activeAudio)));
@@ -121,56 +147,66 @@ function createComparison(root, scenes) {
     toggle.checked = sideBySide;
   }
   function render(reveal) {
-    pause(); loaded = false; const scene = scenes[index];
-    if (!scene[activeAudio]) activeAudio = 'ours';
-    videos.forEach(v => { v.removeAttribute('src'); v.load(); const item = scene[v.dataset.model]; v.poster = item?.poster || scene.ours.poster; v.hidden = !item; v.nextElementSibling.hidden = !!item; });
+    stop(); pos = 0; const s = scene();
+    if (!s[activeAudio]) activeAudio = 'ours';
+    videos.forEach(v => { v.removeAttribute('src'); v.preload = 'none'; v.load(); const item = s[v.dataset.model]; v.poster = item?.poster || s.ours.poster; v.hidden = !item; v.parentElement.querySelector('.missing-video').hidden = !!item; });
     showTime(0);
-    play.disabled = !scene.proact; seek.disabled = !scene.proact;
-    status.textContent = scene.proact ? '' : 'Proact-VL narration is being prepared for this clip.';
-    root.querySelector('[data-audio="proact"]').disabled = !scene.proact;
+    play.disabled = !s.proact; seek.disabled = !s.proact;
+    status.textContent = s.proact ? '' : 'Proact-VL narration is being prepared for this clip.';
+    root.querySelector('[data-audio="proact"]').disabled = !s.proact;
     root.querySelector('.pair-count').textContent = `${pad(index + 1)} / ${pad(scenes.length)}`;
     strip.select(index, reveal);
     audio();
   }
-  function load() { if (loaded) return; available().forEach(v => { v.src = scenes[index][v.dataset.model].src; v.load(); }); loaded = true; }
-  play.addEventListener('click', async () => {
-    if (!lead.paused) { pause(); return; }
-    players.forEach(v => { if (!videos.includes(v)) v.pause(); });
-    load();
-    if (lead.currentTime >= commonDuration() - .05) available().forEach(v => { if (v.readyState > 0) v.currentTime = 0; });
-    try { await Promise.all(available().map(v => v.play())); setPlaying(true); status.textContent = ''; }
-    catch { pause(); status.textContent = 'Playback could not start. Please try again.'; }
-  });
+  play.addEventListener('click', () => { if (wantPlay) { syncPos(); stop(); } else start(); });
   seek.addEventListener('input', () => {
-    load();
-    const t = Math.min(Number(seek.value), commonDuration());
-    available().forEach(v => { if (v.readyState > 0) v.currentTime = Math.min(t, commonDuration()); else v.addEventListener('loadedmetadata', () => { v.currentTime = Math.min(t, commonDuration()); }, {once: true}); });
-    showTime(t);
-  });
-  lead.addEventListener('timeupdate', () => {
-    if (!loaded) return;
-    if (lead.currentTime >= commonDuration() - .02) { finishTogether(); return; }
-    showTime(lead.currentTime);
-    if (!syncing && !lead.paused) {
-      syncing = true;
-      available().slice(1).forEach(v => { if (v.readyState > 0 && Math.abs(v.currentTime - lead.currentTime) > .2) v.currentTime = Math.min(lead.currentTime, commonDuration()); });
-      syncing = false;
-    }
+    pos = Math.min(Number(seek.value), commonDuration());
+    active().forEach(v => { if (loaded(v) || wantPlay) { ensureSrc(v); seekTo(v, pos); } });
+    showTime(pos);
   });
   videos.forEach(v => {
-    v.addEventListener('loadedmetadata', () => { if (loaded) showTime(lead.currentTime); });
-    v.addEventListener('durationchange', () => { if (loaded) showTime(lead.currentTime); });
-    v.addEventListener('ended', finishTogether);
-    v.addEventListener('timeupdate', () => { if (loaded && !v.paused && v.currentTime >= commonDuration() - .02) finishTogether(); });
-    v.addEventListener('error', () => { if (loaded) { pause(); status.textContent = 'Video unavailable. Please retry or select another clip.'; } });
+    v.addEventListener('timeupdate', () => {
+      if (v !== master() || !wantPlay) return;
+      pos = v.currentTime;
+      if (pos >= commonDuration() - .02) { finish(); return; }
+      showTime(pos);
+      // Keep the muted panel in step: nudge its speed for small drift, jump only for large drift.
+      if (sideBySide) active().forEach(o => {
+        if (o === v || o.readyState < 2 || o.paused) return;
+        const d = o.currentTime - pos;
+        if (Math.abs(d) > .4) { o.currentTime = pos; o.playbackRate = 1; }
+        else o.playbackRate = Math.abs(d) > .06 ? (d > 0 ? .94 : 1.06) : 1;
+      });
+    });
+    // If either stream stalls, hold the other one until both have data again.
+    v.addEventListener('waiting', () => {
+      if (!wantPlay || !active().includes(v)) return;
+      waiting.add(v); active().forEach(o => { if (o !== v) o.pause(); }); setBuffering();
+    });
+    v.addEventListener('canplay', () => {
+      if (!waiting.delete(v)) return;
+      setBuffering();
+      if (wantPlay && !waiting.size) { syncPos(); run(); }
+    });
+    v.addEventListener('playing', () => { if (waiting.delete(v)) setBuffering(); });
+    v.addEventListener('pause', () => { if (v === master() && wantPlay && !waiting.size && !v.ended) { syncPos(); stop(); } });
+    v.addEventListener('ended', () => { if (wantPlay && v === master()) finish(); });
+    v.addEventListener('loadedmetadata', () => showTime(pos));
+    v.addEventListener('error', () => { if (loaded(v)) { stop(); status.textContent = 'Video unavailable. Please retry or select another clip.'; } });
   });
-  lead.addEventListener('pause', () => setPlaying(false));
   root.querySelectorAll('[data-audio]').forEach(b => b.addEventListener('click', () => {
-    const next = videos.find(v => v.dataset.model === b.dataset.audio);
-    if (loaded && next.readyState > 0) next.currentTime = Math.min(lead.currentTime, commonDuration());
+    if (b.dataset.audio === activeAudio) return;
+    syncPos(); waiting.clear();
     activeAudio = b.dataset.audio; audio();
+    if (wantPlay) run(); else active().forEach(v => { if (loaded(v)) seekTo(v, pos); });
+    setBuffering();
   }));
-  toggle.addEventListener('change', () => { sideBySide = toggle.checked; audio(); });
+  toggle.addEventListener('change', () => {
+    syncPos(); waiting.clear();
+    sideBySide = toggle.checked; audio();
+    if (wantPlay) run();
+    setBuffering();
+  });
   render(false);
 }
 

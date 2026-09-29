@@ -282,6 +282,14 @@ a { color: var(--blue-ink); }
 .audio-state svg { width: 16px; height: 16px; fill: currentColor; }
 .side-by-side .stage:not(.has-audio) { opacity: .9; }
 .side-by-side .stage:not(.has-audio) .audio-state { background: rgb(0 0 0 / .18); }
+.buffer-spinner {
+  position: absolute; left: 50%; top: 50%; z-index: 3; width: 46px; height: 46px; margin: -23px 0 0 -23px;
+  border-radius: 50%; border: 3px solid rgb(255 255 255 / .28); border-top-color: #fff;
+  opacity: 0; pointer-events: none; transition: opacity .2s;
+}
+.is-buffering .buffer-spinner { opacity: 1; animation: spin .8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .is-buffering .buffer-spinner { animation-duration: 2.4s; } }
 .missing-video { position: absolute; inset: 0; display: grid; place-content: center; margin: 0; font-size: 13px; color: #94a3b8; background: #111827; }
 
 .transport {

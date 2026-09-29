@@ -33,7 +33,7 @@
     "ours": {
       "src": "assets/videos/lol-07-moba-newvoice.mp4",
       "poster": "assets/posters/lol-07-moba-newvoice.jpg",
-      "duration": 29.992
+      "duration": 28.0
     },
     "proact": {
       "src": "assets/videos/lol-07-proact-newvoice.mp4",
@@ -103,7 +103,7 @@
     "ours": {
       "src": "assets/videos/lol-08-moba-newvoice.mp4",
       "poster": "assets/posters/lol-08-moba-newvoice.jpg",
-      "duration": 29.896533
+      "duration": 28.0
     },
     "proact": {
       "src": "assets/videos/lol-08-proact-newvoice.mp4",

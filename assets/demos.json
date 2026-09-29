@@ -21,7 +21,7 @@
     "id": "lol-07",
     "game": "lol",
     "title": "League of Legends",
-    "duration": 29.992,
+    "duration": 28.0,
     "src": "assets/videos/lol-07-moba-newvoice.mp4",
     "poster": "assets/posters/lol-07-moba-newvoice.jpg",
     "featured": false
@@ -66,19 +66,10 @@
     "id": "lol-08",
     "game": "lol",
     "title": "League of Legends",
-    "duration": 29.896533,
+    "duration": 28.0,
     "src": "assets/videos/lol-08-moba-newvoice.mp4",
     "poster": "assets/posters/lol-08-moba-newvoice.jpg",
     "featured": false
-  },
-  {
-    "id": "dota-sv-2331",
-    "game": "dota2",
-    "title": "Spirit vs VISION \u00b7 Game 2 \u00b7 23:31",
-    "duration": 20.0,
-    "src": "assets/videos/dota-spirit-vision-g2-2331.mp4",
-    "poster": "assets/posters/dota-spirit-vision-g2-2331.jpg",
-    "featured": true
   },
   {
     "id": "dota-sv-1309",
@@ -87,6 +78,15 @@
     "duration": 30.0,
     "src": "assets/videos/dota-spirit-vision-g2-1309.mp4",
     "poster": "assets/posters/dota-spirit-vision-g2-1309.jpg",
+    "featured": true
+  },
+  {
+    "id": "dota-sv-2331",
+    "game": "dota2",
+    "title": "Spirit vs VISION \u00b7 Game 2 \u00b7 23:31",
+    "duration": 20.0,
+    "src": "assets/videos/dota-spirit-vision-g2-2331.mp4",
+    "poster": "assets/posters/dota-spirit-vision-g2-2331.jpg",
     "featured": false
   },
   {
@@ -108,39 +108,39 @@
     "featured": false
   },
   {
+    "id": "hok-ksg-ag-g2",
+    "game": "hok",
+    "title": "KSG vs AG \u00b7 Game 2",
+    "duration": 29.995,
+    "src": "assets/videos/hok-ksg-ag-g2-1080p.mp4",
+    "poster": "assets/posters/hok-ksg-ag-g2-1080p.jpg",
+    "featured": true
+  },
+  {
     "id": "hok-aur-roc-g3",
     "game": "hok",
     "title": "AUR vs ROC \u00b7 Game 3",
-    "duration": 30.04,
-    "src": "assets/videos/hok-aur-roc-g3.mp4",
-    "poster": "assets/posters/hok-aur-roc-g3.jpg",
+    "duration": 29.994,
+    "src": "assets/videos/hok-aur-roc-g3-1080p.mp4",
+    "poster": "assets/posters/hok-aur-roc-g3-1080p.jpg",
     "featured": false
   },
   {
     "id": "hok-boom-nmss-g1",
     "game": "hok",
     "title": "BOOM vs NMSS \u00b7 Game 1",
-    "duration": 30.04,
-    "src": "assets/videos/hok-boom-nmss-g1.mp4",
-    "poster": "assets/posters/hok-boom-nmss-g1.jpg",
-    "featured": false
-  },
-  {
-    "id": "hok-ksg-ag-g2",
-    "game": "hok",
-    "title": "KSG vs AG \u00b7 Game 2",
-    "duration": 30.04,
-    "src": "assets/videos/hok-ksg-ag-g2.mp4",
-    "poster": "assets/posters/hok-ksg-ag-g2.jpg",
+    "duration": 29.995,
+    "src": "assets/videos/hok-boom-nmss-g1-1080p.mp4",
+    "poster": "assets/posters/hok-boom-nmss-g1-1080p.jpg",
     "featured": false
   },
   {
     "id": "hok-tec-aur-g1",
     "game": "hok",
     "title": "TEC vs AUR \u00b7 Game 1",
-    "duration": 60.03,
-    "src": "assets/videos/hok-tec-aur-g1.mp4",
-    "poster": "assets/posters/hok-tec-aur-g1.jpg",
-    "featured": true
+    "duration": 60.0,
+    "src": "assets/videos/hok-tec-aur-g1-1080p.mp4",
+    "poster": "assets/posters/hok-tec-aur-g1-1080p.jpg",
+    "featured": false
   }
 ]
